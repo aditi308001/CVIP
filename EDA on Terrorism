@@ -1,1 +1,266 @@
+IMPORTING LIBRARIES REQUIRED
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+DATA EXTRACTION AND OBSERVATION
+df = pd.read_csv('C:\\Users\dell\Desktop\EDA3\\t1.csv', encoding ='latin1', low_memory = False)
+print(df)
+​
+             eventid  iyear  imonth  iday approxdate  extended resolution  \
+0       1.970000e+11   1970       7     2        NaN         0        NaN   
+1       1.970000e+11   1970       0     0        NaN         0        NaN   
+2       1.970000e+11   1970       1     0        NaN         0        NaN   
+3       1.970000e+11   1970       1     0        NaN         0        NaN   
+4       1.970000e+11   1970       1     0        NaN         0        NaN   
+...              ...    ...     ...   ...        ...       ...        ...   
+181686  2.020000e+11   2017      12    31        NaN         0        NaN   
+181687  2.020000e+11   2017      12    31        NaN         0        NaN   
+181688  2.020000e+11   2017      12    31        NaN         0        NaN   
+181689  2.020000e+11   2017      12    31        NaN         0        NaN   
+181690  2.020000e+11   2017      12    31        NaN         0        NaN   
+
+        country         country_txt  region  ... addnotes  \
+0            58  Dominican Republic       2  ...      NaN   
+1           130              Mexico       1  ...      NaN   
+2           160         Philippines       5  ...      NaN   
+3            78              Greece       8  ...      NaN   
+4           101               Japan       4  ...      NaN   
+...         ...                 ...     ...  ...      ...   
+181686      182             Somalia      11  ...      NaN   
+181687      200               Syria      10  ...      NaN   
+181688      160         Philippines       5  ...      NaN   
+181689       92               India       6  ...      NaN   
+181690      160         Philippines       5  ...      NaN   
+
+                                                   scite1  \
+0                                                     NaN   
+1                                                     NaN   
+2                                                     NaN   
+3                                                     NaN   
+4                                                     NaN   
+...                                                   ...   
+181686  "Somalia: Al-Shabaab Militants Attack Army Che...   
+181687  "Putin's 'victory' in Syria has turned into a ...   
+181688  "Maguindanao clashes trap tribe members," Phil...   
+181689  "Trader escapes grenade attack in Imphal," Bus...   
+181690  "Security tightened in Cotabato following IED ...   
+
+                                                   scite2  \
+0                                                     NaN   
+1                                                     NaN   
+2                                                     NaN   
+3                                                     NaN   
+4                                                     NaN   
+...                                                   ...   
+181686  "Highlights: Somalia Daily Media Highlights 2 ...   
+181687  "Two Russian soldiers killed at Hmeymim base i...   
+181688                                                NaN   
+181689                                                NaN   
+181690  "Security tightened in Cotabato City," Manila ...   
+
+                                                   scite3  \
+0                                                     NaN   
+1                                                     NaN   
+2                                                     NaN   
+3                                                     NaN   
+4                                                     NaN   
+...                                                   ...   
+181686  "Highlights: Somalia Daily Media Highlights 1 ...   
+181687  "Two Russian servicemen killed in Syria mortar...   
+181688                                                NaN   
+181689                                                NaN   
+181690                                                NaN   
+
+                        dbsource  INT_LOG  INT_IDEO INT_MISC INT_ANY  related  
+0                           PGIS        0         0        0       0      NaN  
+1                           PGIS        0         1        1       1      NaN  
+2                           PGIS       -9        -9        1       1      NaN  
+3                           PGIS       -9        -9        1       1      NaN  
+4                           PGIS       -9        -9        1       1      NaN  
+...                          ...      ...       ...      ...     ...      ...  
+181686  START Primary Collection        0         0        0       0      NaN  
+181687  START Primary Collection       -9        -9        1       1      NaN  
+181688  START Primary Collection        0         0        0       0      NaN  
+181689  START Primary Collection       -9        -9        0      -9      NaN  
+181690  START Primary Collection       -9        -9        0      -9      NaN  
+
+[181691 rows x 135 columns]
+df.shape
+(181691, 135)
+df.head(100)
+eventid	iyear	imonth	iday	approxdate	extended	resolution	country	country_txt	region	...	addnotes	scite1	scite2	scite3	dbsource	INT_LOG	INT_IDEO	INT_MISC	INT_ANY	related
+0	1.970000e+11	1970	7	2	NaN	0	NaN	58	Dominican Republic	2	...	NaN	NaN	NaN	NaN	PGIS	0	0	0	0	NaN
+1	1.970000e+11	1970	0	0	NaN	0	NaN	130	Mexico	1	...	NaN	NaN	NaN	NaN	PGIS	0	1	1	1	NaN
+2	1.970000e+11	1970	1	0	NaN	0	NaN	160	Philippines	5	...	NaN	NaN	NaN	NaN	PGIS	-9	-9	1	1	NaN
+3	1.970000e+11	1970	1	0	NaN	0	NaN	78	Greece	8	...	NaN	NaN	NaN	NaN	PGIS	-9	-9	1	1	NaN
+4	1.970000e+11	1970	1	0	NaN	0	NaN	101	Japan	4	...	NaN	NaN	NaN	NaN	PGIS	-9	-9	1	1	NaN
+...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...
+95	1.970000e+11	1970	2	28	NaN	0	NaN	102	Jordan	10	...	NaN	NaN	NaN	NaN	PGIS	-9	-9	0	-9	NaN
+96	1.970000e+11	1970	3	0	NaN	0	NaN	160	Philippines	5	...	NaN	NaN	NaN	NaN	PGIS	-9	-9	1	1	NaN
+97	1.970000e+11	1970	3	1	NaN	0	NaN	98	Italy	8	...	NaN	NaN	NaN	NaN	PGIS	1	0	1	1	NaN
+98	1.970000e+11	1970	3	1	NaN	0	NaN	217	United States	1	...	The perpetrators painted signs on nearby the b...	Committee on Government Operations United Stat...	"Colorado R.O.T.C. Blast Attributed to Arsonis...	Robert W. Patterson, "Crime & the American Res...	Hewitt Project	-9	-9	0	-9	NaN
+99	1.970000e+11	1970	3	1	NaN	0	NaN	217	United States	1	...	NaN	Committee on Government Operations United Stat...	"Colorado R.O.T.C. Blast Attributed to Arsonis...	Steven V. Roberts, "Bombings on Rise Over the ...	Hewitt Project	-9	-9	0	-9	NaN
+100 rows × 135 columns
+
+df.columns
+Index(['eventid', 'iyear', 'imonth', 'iday', 'approxdate', 'extended',
+       'resolution', 'country', 'country_txt', 'region',
+       ...
+       'addnotes', 'scite1', 'scite2', 'scite3', 'dbsource', 'INT_LOG',
+       'INT_IDEO', 'INT_MISC', 'INT_ANY', 'related'],
+      dtype='object', length=135)
+DATA CLEANING
+df = df[['iyear','imonth','iday','country_txt','region_txt','provstate','city','summary','attacktype1_txt','targtype1_txt','gname','motive','weaptype1_txt','nkill','nwound','addnotes']]
+df.head(100)
+iyear	imonth	iday	country_txt	region_txt	provstate	city	summary	attacktype1_txt	targtype1_txt	gname	motive	weaptype1_txt	nkill	nwound	addnotes
+0	1970	7	2	Dominican Republic	Central America & Caribbean	NaN	Santo Domingo	NaN	Assassination	Private Citizens & Property	MANO-D	NaN	Unknown	1.0	0.0	NaN
+1	1970	0	0	Mexico	North America	Federal	Mexico city	NaN	Hostage Taking (Kidnapping)	Government (Diplomatic)	23rd of September Communist League	NaN	Unknown	0.0	0.0	NaN
+2	1970	1	0	Philippines	Southeast Asia	Tarlac	Unknown	NaN	Assassination	Journalists & Media	Unknown	NaN	Unknown	1.0	0.0	NaN
+3	1970	1	0	Greece	Western Europe	Attica	Athens	NaN	Bombing/Explosion	Government (Diplomatic)	Unknown	NaN	Explosives	NaN	NaN	NaN
+4	1970	1	0	Japan	East Asia	Fukouka	Fukouka	NaN	Facility/Infrastructure Attack	Government (Diplomatic)	Unknown	NaN	Incendiary	NaN	NaN	NaN
+...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...
+95	1970	2	28	Jordan	Middle East & North Africa	Khalil	Hebron	NaN	Armed Assault	Tourists	Unknown	NaN	Firearms	NaN	NaN	NaN
+96	1970	3	0	Philippines	Southeast Asia	Metropolitian Manila	Manila	NaN	Bombing/Explosion	Government (Diplomatic)	Unknown	NaN	Explosives	0.0	0.0	NaN
+97	1970	3	1	Italy	Western Europe	Lazio	Rome	NaN	Bombing/Explosion	Airports & Aircraft	Eritrean Liberation Front	NaN	Explosives	0.0	0.0	NaN
+98	1970	3	1	United States	North America	Colorado	Boulder	3/1/1970: Unknown perpetrators bombed the offi...	Bombing/Explosion	Military	Student Radicals	Protest the Vietnam War and the R.O.T.C.	Explosives	0.0	0.0	The perpetrators painted signs on nearby the b...
+99	1970	3	1	United States	North America	Colorado	Colorado Springs	3/1/1970: Unknown perpetrators firebombed the ...	Facility/Infrastructure Attack	Military	Left-Wing Militants	Protest the War in Vietnam and sabotage the draft	Incendiary	0.0	0.0	NaN
+100 rows × 16 columns
+
+df.rename(columns = {'iyear':'Year','imonth':'Month','iday':'Day','country_txt':'Country','region_txt':'Region','provstate':'Provision State','city':'City','summary':'Summary','attacktype1_txt':'Attack Type','targtype1_txt':'Target Type','gname':'Group Name','motive':'Motive','weaptype1_txt':'Weapon Type','nkill':'Killed','nwound':'Wounded','addnotes':'Add notes'},inplace = True)
+​
+df.head()
+Year	Month	Day	Country	Region	Provision State	City	Summary	Attack Type	Target Type	Group Name	Motive	Weapon Type	Killed	Wounded	Add notes
+0	1970	7	2	Dominican Republic	Central America & Caribbean	NaN	Santo Domingo	NaN	Assassination	Private Citizens & Property	MANO-D	NaN	Unknown	1.0	0.0	NaN
+1	1970	0	0	Mexico	North America	Federal	Mexico city	NaN	Hostage Taking (Kidnapping)	Government (Diplomatic)	23rd of September Communist League	NaN	Unknown	0.0	0.0	NaN
+2	1970	1	0	Philippines	Southeast Asia	Tarlac	Unknown	NaN	Assassination	Journalists & Media	Unknown	NaN	Unknown	1.0	0.0	NaN
+3	1970	1	0	Greece	Western Europe	Attica	Athens	NaN	Bombing/Explosion	Government (Diplomatic)	Unknown	NaN	Explosives	NaN	NaN	NaN
+4	1970	1	0	Japan	East Asia	Fukouka	Fukouka	NaN	Facility/Infrastructure Attack	Government (Diplomatic)	Unknown	NaN	Incendiary	NaN	NaN	NaN
+df.isnull().sum()
+Year                    0
+Month                   0
+Day                     0
+Country                 0
+Region                  0
+Provision State       421
+City                  435
+Summary             66129
+Attack Type             0
+Target Type             0
+Group Name              0
+Motive             131130
+Weapon Type             0
+Killed              10313
+Wounded             16311
+Add notes          153402
+dtype: int64
+df['Killed']= df['nkill'].fillna(0)
+df['Wounded']= df['nwound'].fillna(0)
+df['fatality']= df['Killed']+ df['Wounded']
+df.describe()
+eventid	iyear	imonth	iday	extended	country	region	latitude	longitude	specificity	...	ransompaidus	hostkidoutcome	nreleased	INT_LOG	INT_IDEO	INT_MISC	INT_ANY	Killed	Wounded	fatality
+count	1.816910e+05	181691.000000	181691.000000	181691.000000	181691.000000	181691.000000	181691.000000	177135.000000	1.771340e+05	181685.000000	...	552.000000	10991.000000	10400.000000	181691.000000	181691.000000	181691.000000	181691.000000	181691.000000	181691.000000	181691.000000
+mean	2.003238e+11	2002.638997	6.467277	15.505644	0.045346	131.968501	7.160938	23.498343	-4.586957e+02	1.451452	...	240.378623	4.629242	-29.018269	-4.543731	-4.464398	0.090010	-3.945952	2.266860	2.883296	5.150156
+std	1.383523e+09	13.259430	3.388303	8.814045	0.208063	112.414535	2.933408	18.569242	2.047790e+05	0.995430	...	2940.967293	2.035360	65.720119	4.543547	4.637152	0.568457	4.691325	11.227057	34.309747	40.555416
+min	1.970000e+11	1970.000000	0.000000	0.000000	0.000000	4.000000	1.000000	-53.154613	-8.618590e+07	1.000000	...	-99.000000	1.000000	-99.000000	-9.000000	-9.000000	-9.000000	-9.000000	0.000000	0.000000	0.000000
+25%	1.990000e+11	1991.000000	4.000000	8.000000	0.000000	78.000000	5.000000	11.510046	4.545640e+00	1.000000	...	0.000000	2.000000	-99.000000	-9.000000	-9.000000	0.000000	-9.000000	0.000000	0.000000	0.000000
+50%	2.010000e+11	2009.000000	6.000000	15.000000	0.000000	98.000000	6.000000	31.467463	4.324651e+01	1.000000	...	0.000000	4.000000	0.000000	-9.000000	-9.000000	0.000000	0.000000	0.000000	0.000000	1.000000
+75%	2.010000e+11	2014.000000	9.000000	23.000000	0.000000	160.000000	10.000000	34.685087	6.871033e+01	1.000000	...	0.000000	7.000000	1.000000	0.000000	0.000000	0.000000	0.000000	2.000000	2.000000	4.000000
+max	2.020000e+11	2017.000000	12.000000	31.000000	1.000000	1004.000000	12.000000	74.633553	1.793667e+02	5.000000	...	48000.000000	7.000000	2769.000000	1.000000	1.000000	1.000000	1.000000	1570.000000	8191.000000	9574.000000
+8 rows × 80 columns
+
+OBSERVATION 1
+The data is recorded for the year from 1970 to 2017.
+
+Maximum number of people killed are 1570.
+
+Maximum number of people wounded are 8191.
+
+Maximum number of fatality are 9574.
+
+DATA VISUALIZATION
+Analysis on the basis of year
+plt.figure(figsize= (30,20))
+sns.countplot(data=df, x='iyear')
+plt.title("Count of terrorist activity per year",fontsize = 80)
+sns.set(font_scale=5.0)
+plt.xticks(rotation=90)
+plt.show()
+​
+
+OBSERVATION 2
+On the analysis of terrorist activity per year and with help of graph plotted , it can be concluded that : The year 2014 was the year with highest number of terrorist activity counts ranging above 16000 whereas 1971 was the year with least number of terrorist activities.
+
+Analysis on the basis of Year and Fatility
+graph1 = df.groupby(['iyear'], as_index=False)['fatality'].sum().sort_values(by='fatality',ascending=False)
+sns.barplot(x='iyear',y='fatality',data = graph1,width = 0.5,palette = 'magma').set_title("Number of fatality per year",fontsize=50)
+sns.set(font_scale=10)
+sns.set(rc={'figure.figsize':(30,20)})
+plt.show()
+
+OBSERVATION 3
+On the basis of graph plotted between the attributes years and fatalities where( fatalities = killed + wounded) it can be concluded that: The most number of fatalities were observed in year 2014, ranging more than 80000 whereas the least fatalities were observed in year 1971.Some other years which were having significant rise in fatality rates were the year 2015 and 2016.
+
+Analysis on the basis of region
+plt.figure(figsize= (30,20))
+sns.countplot(data=df, x='region_txt',palette='YlGnBu')
+plt.title("Analysis on the basis of region",fontsize = 80)
+sns.set(font_scale=4.0)
+plt.xticks(rotation=90)
+plt.show()
+
+OBSERVATION 4
+On the basis of graphical representation plotted for the terrorism in different regions it can be concluded that : Middle East & North Africa was the region with highest number of terrorist activities whereas Australasia & Oceanina marked to be the region with lowest .
+
+Analysis of Casuality per Region
+graph2 = df.groupby(['region_txt'], as_index=False)['fatality'].sum().sort_values(by='fatality',ascending=False)
+sns.barplot(x='region_txt',y='fatality',data = graph2,width = 0.5,palette = 'crest').set_title("Number of fatality according to regions",fontsize=50)
+sns.set(font_scale=10)
+sns.set(rc={'figure.figsize':(30,20)})
+plt.show()
+
+OBSERVATION 5
+The most number of fatalities that were more than 350000 were observed in Middle East & North Africa , South Asia was the second region with high fatality rate . Australasia & Oceania was the region with lowest fatality rate.
+
+Analysis on the type of attack
+plt.figure(figsize= (30,20))
+sns.countplot(data=df, x='attacktype1_txt',palette='Accent')
+plt.title("Analysis on the basis of type of attack",fontsize = 80)
+sns.set(font_scale=4.0)
+plt.xticks(rotation=90)
+plt.show()
+
+OBSERVATION 6
+Bombing/Explosion is the most frequently used attack type with more than 80000 count.
+Hijacking to be the lowest attack type recorded between yers 1970 to 2017.
+Analysis on the basis of fatality and attack type
+graph3 = df.groupby(['attacktype1_txt'], as_index=False)['fatality'].sum().sort_values(by='fatality',ascending=False)
+sns.barplot(x='attacktype1_txt',y='fatality',data = graph3,width = 0.5,palette = 'pastel').set_title("Number of fatality according to attack type",fontsize=50)
+sns.set(font_scale=10)
+sns.set(rc={'figure.figsize':(30,20)})
+plt.show()
+
+OBSERVATION 6
+The highest fatality rate which was counted as 500000 was observed to be due to Bombing/Explosion attack type , whereas Armed Assault was observed as second attack type to be with second most high fatality rate. Hostage Taking and Facility/Infrastructure attack was the type of attacks with least fatality rate.
+
+Analysis on the basis of weapon
+plt.figure(figsize= (30,20))
+sns.countplot(data=df, x='weaptype1_txt',palette='RdYlBu')
+plt.title("Analysis on the basis of type of weapon used",fontsize = 80)
+sns.set(font_scale=4.0)
+plt.xticks(rotation=90)
+plt.show()
+
+OBSERVATION 7
+The weapon most used was explosives and the second most used weapon is Firearms.
+
+CONCLUSION
+According to a review of terrorism data from 1970 to 2017, the year 2014 had the highest terrorist activity with a death rate of more than 80000, followed by 2015 and 2016, however 2017 witnessed a decrease in terrorist operations. In contrast, 1971 was noted to be the year with the fewest terrorist activities and the lowest death rate.
+
+The Middle East and North Africa had the highest terrorist activity, with a death rate of 350000 and terrorist activity ranging from more than 50000, followed by South Asia. The region with the fewest terrorist operations was Australasia and Oceania.
+
+The two most common attack types were bombing explosions and armed assaults. More than 500000 people are killed in bombing explosions.
+
+Explosives were the most commonly utilised terrorist weapons, followed by forced arms.
+
 
